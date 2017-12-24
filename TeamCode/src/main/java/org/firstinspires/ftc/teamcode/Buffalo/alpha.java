@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="Noah v.1.14", group="Iterative Opmode")
+@TeleOp(name="Noah v.1.15", group="Iterative Opmode")
 public class alpha extends OpMode{
 
     private Definitions robot = new Definitions();
@@ -102,10 +102,10 @@ public class alpha extends OpMode{
 
 
         if (gamepad1.right_bumper && !gamepad1.left_bumper) {
-            slow = 0.5;
+            slow = 0.1;
         }
         else if (!gamepad1.right_bumper && gamepad1.left_bumper) {
-            slow = 0.25;
+            slow = 0.2;
         }
         else {
             slow = 1;
