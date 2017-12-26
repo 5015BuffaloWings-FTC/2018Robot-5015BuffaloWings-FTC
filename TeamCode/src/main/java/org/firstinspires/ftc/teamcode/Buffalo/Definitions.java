@@ -42,9 +42,9 @@ public class Definitions  {
 	}
 
 	void backward(double power){
-		leftBack.setPower(power);
+		leftBack.setPower(-power);
 		leftFront.setPower(power);
-		rightBack.setPower(power);
+		rightBack.setPower(-power);
 		rightFront.setPower(power);
 	}
 
@@ -86,8 +86,8 @@ public class Definitions  {
 	}
 
 	void setPos(int pos) {
-		leftBack.setTargetPosition(-pos);
-		leftFront.setTargetPosition(-pos);
+		leftBack.setTargetPosition(pos);
+		leftFront.setTargetPosition(pos);
 		rightBack.setTargetPosition(pos);
 		rightFront.setTargetPosition(pos);
 	}

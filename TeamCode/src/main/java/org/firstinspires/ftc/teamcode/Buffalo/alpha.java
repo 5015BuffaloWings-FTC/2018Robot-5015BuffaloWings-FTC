@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-@TeleOp(name="Noah v.1.15", group="Iterative Opmode")
+@TeleOp(name="Noah v.1.23", group="Iterative Opmode")
 public class alpha extends OpMode{
 
     private Definitions robot = new Definitions();
@@ -26,6 +26,7 @@ public class alpha extends OpMode{
     private DcMotor arm_2 = null;
     private DcMotor armReel = null;
     double slow = 1;
+    double comp = 0;
 
 
     //Driver starts the program
@@ -111,21 +112,27 @@ public class alpha extends OpMode{
             slow = 1;
         }
 
-
-        double DFL = Range.clip(slow*(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
-        double DFR = Range.clip(slow*(-gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
-        double DBR = Range.clip(slow*(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
-        double DBL = Range.clip(slow*(-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
+		double DFR = Range.clip(slow*(-gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
+        double DFL = Range.clip(slow*(gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
+        double DBR = Range.clip(slow*(-gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
+        double DBL = Range.clip(slow*(gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
 
         rightFront.setPower(DFR);
+		leftFront.setPower(DFL);
         rightBack.setPower(DBR);
         leftBack.setPower(DBL);
-        leftFront.setPower(DFL);
 
 
 
-        double AR = 0.08*gamepad2.right_stick_y; //idk what im doing -Noah
-        double AL = 0.1*-gamepad2.right_stick_y;
+
+		if(gamepad2.a){
+			comp = 0.1;
+		} else {
+			comp = 0;
+		}
+
+        double AR = comp+((0.1*gamepad2.right_stick_x)+(0.15*+gamepad2.right_stick_y)); //idk what im doing -Noah
+        double AL = -comp+((0.1*-gamepad2.left_stick_x)+(0.15*-gamepad2.right_stick_y));
 
         arm_1.setPower(AR);
         arm_2.setPower(AL);
@@ -172,10 +179,7 @@ public class alpha extends OpMode{
 
     }
 
-
-
     @Override
     public void stop() {
     }
-
 }

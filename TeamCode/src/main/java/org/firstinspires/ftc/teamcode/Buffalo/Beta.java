@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by CHSRobotics on 12/23/2017.
  */
 
-@Autonomous (name = "Autonomous beta v.1.2.3")
+@Autonomous (name = "Autonomous beta v.1.2.8")
 public class Beta extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
@@ -21,14 +21,17 @@ public class Beta extends LinearOpMode{
 
 		waitForStart();
 
+		if(time < 10) {
+			robot.resetEncoders();
+			robot.setPos(5000);
+			robot.forward(0.5);
+			robot.run();
+			robot.waitForDriveStop();
+		} else {
+			sleep(1);
+		}
 
-		robot.resetEncoders();
-		robot.setPos(5000);
-		robot.run();
-		robot.forward(0.5);
-		robot.waitForDriveStop();
-
-		sleep(100);
+		sleep(500);
 
 		robot.resetEncoders();
 		robot.setPos(5000);
