@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * Created by CHSRobotics on 12/23/2017.
+ * Created by Noah Zulick (Buffalo Wings) on 12/23/2017.
  */
 
-@Autonomous (name = "Autonomous beta v.1.2.8")
+@Autonomous (name = "Autonomous beta v.1.2.10x")
 public class Beta extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
@@ -18,26 +18,13 @@ public class Beta extends LinearOpMode{
 	@Override
 	public void runOpMode() throws InterruptedException {
 		robot.init(hardwareMap);
+		robot.encoderInit();
 
 		waitForStart();
 
-		if(time < 10) {
-			robot.resetEncoders();
-			robot.setPos(5000);
-			robot.forward(0.5);
-			robot.run();
-			robot.waitForDriveStop();
-		} else {
-			sleep(1);
-		}
+		if ()
 
-		sleep(500);
 
-		robot.resetEncoders();
-		robot.setPos(5000);
-		robot.run();
-		robot.backward(0.5);
-		robot.waitForDriveStop();
 
 	}
 

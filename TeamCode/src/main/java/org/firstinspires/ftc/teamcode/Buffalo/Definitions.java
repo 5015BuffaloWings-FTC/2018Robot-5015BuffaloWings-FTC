@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Buffalo;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by CHSRobotics on 12/23/2017.
@@ -11,15 +13,22 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Definitions  {
 
 	ElapsedTime runtime = new ElapsedTime(); // Defines the Up Time of the program
-	DcMotor leftBack = null; // Define Back Left Motor
-	DcMotor leftFront = null; // Define Front Left Motor
-	DcMotor rightBack = null; // Define Back Right Motor
-	DcMotor rightFront = null; // Define Front Right Motor
-	DcMotor arm_1 = null;
-	DcMotor arm_2 = null;
-	DcMotor armReel = null;
-	
-	
+
+
+	private DcMotor leftBack; // Define Back Left Motor
+	private DcMotor leftFront = null; // Define Front Left Motor
+	private DcMotor rightBack = null; // Define Back Right Motor
+	private DcMotor rightFront = null; // Define Front Right Motor
+	private DcMotor arm_1 = null;
+	private DcMotor arm_2 = null;
+	private DcMotor armReel = null;
+	private Servo Jewel = null;
+
+	public Definitions() {
+		leftBack = null;
+	}
+
+
 	public void init(HardwareMap Map) {
 
 		leftBack = Map.dcMotor.get("leftBack"); // Initialize Left Drive
@@ -29,10 +38,58 @@ public class Definitions  {
 		arm_1 = Map.dcMotor.get( "ArmRight"); // Define Right Arm
 		arm_2 = Map.dcMotor.get( "ArmLeft"); // Define Left Arm
 		armReel = Map.dcMotor.get( "armReel"); // Define Glyph Reel
+		Jewel = Map.servo.get("ArmJewel"); // Define Jewel Arm
 
 
 	}
 		/** defines all actions for Autonomous **/
+
+
+
+
+	void setDriveForward() {
+		leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+	}
+
+	void setDriveBackward() {
+		leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+	}
+
+	void setRotLeft() {
+		leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+	}
+
+	void setRotRight() {
+		leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+	}
+
+	void setStrafeLeft() {
+		leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+	}
+
+	void setStrafeRight() {
+		leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+		rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+	}
+
+
 
 	void forward(double power){
 		leftBack.setPower(power);
@@ -42,16 +99,16 @@ public class Definitions  {
 	}
 
 	void backward(double power){
-		leftBack.setPower(-power);
+		leftBack.setPower(power);
 		leftFront.setPower(power);
-		rightBack.setPower(-power);
+		rightBack.setPower(power);
 		rightFront.setPower(power);
 	}
 
 
 	void rotLeft(double power) {
-		leftBack.setPower(-power);
-		leftFront.setPower(-power);
+		leftBack.setPower(power);
+		leftFront.setPower(power);
 		rightBack.setPower(power);
 		rightFront.setPower(power);
 	}
@@ -59,22 +116,22 @@ public class Definitions  {
 	void rotRight(double power) {
 		leftBack.setPower(power);
 		leftFront.setPower(power);
-		rightBack.setPower(-power);
-		rightFront.setPower(-power);
+		rightBack.setPower(power);
+		rightFront.setPower(power);
 	}
 
 	void strafeLeft(double power){
 		leftBack.setPower(power);
-		leftFront.setPower(-power);
-		rightBack.setPower(-power);
+		leftFront.setPower(power);
+		rightBack.setPower(power);
 		rightFront.setPower(power);
 	}
 
 	void strafeRight(double power){
-		leftBack.setPower(-power);
+		leftBack.setPower(power);
 		leftFront.setPower(power);
 		rightBack.setPower(power);
-		rightFront.setPower(-power);
+		rightFront.setPower(power);
 	}
 
 
@@ -92,7 +149,7 @@ public class Definitions  {
 		rightFront.setTargetPosition(pos);
 	}
 
-	void run() {
+	void runPos() {
 		leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -106,8 +163,11 @@ public class Definitions  {
 		rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 	}
 
-	//Waits for the drive motor(s) to stop rotating
 
+
+
+
+	//Waits for the drive motor(s) to stop rotating
 	void waitForDriveStop() {
 		while (true) {
 			if (!(leftBack.isBusy())) break;
