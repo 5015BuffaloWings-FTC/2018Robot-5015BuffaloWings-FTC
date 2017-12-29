@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Created by CHSRobotics on 12/23/2017.
@@ -15,14 +16,22 @@ public class Definitions  {
 	ElapsedTime runtime = new ElapsedTime(); // Defines the Up Time of the program
 
 
-	private DcMotor leftBack; // Define Back Left Motor
-	private DcMotor leftFront = null; // Define Front Left Motor
-	private DcMotor rightBack = null; // Define Back Right Motor
-	private DcMotor rightFront = null; // Define Front Right Motor
-	private DcMotor arm_1 = null;
-	private DcMotor arm_2 = null;
-	private DcMotor armReel = null;
-	private Servo Jewel = null;
+	DcMotor leftBack = null; // Define Back Left Motor
+	DcMotor leftFront = null; // Define Front Left Motor
+	DcMotor rightBack = null; // Define Back Right Motor
+	DcMotor rightFront = null; // Define Front Right Motor
+	DcMotor armRight = null;
+	DcMotor armLeft = null;
+	DcMotor reel = null;
+	DcMotor pulley = null;
+	Servo jewel = null;
+	Servo relicLift = null;
+	Servo relicGrip = null;
+	ColorSensor jewelSensor = null;
+	private HardwareMap testMap;
+	double comp = 0;
+	double slow = 1;
+	double grab = 0;
 
 	public Definitions() {
 		leftBack = null;
@@ -31,20 +40,43 @@ public class Definitions  {
 
 	public void init(HardwareMap Map) {
 
-		leftBack = Map.dcMotor.get("leftBack"); // Initialize Left Drive
-		leftFront = Map.dcMotor.get( "leftFront"); // Define Right Drive
-		rightBack = Map.dcMotor.get( "rightBack"); // Define Left Drive
-		rightFront = Map.dcMotor.get( "rightFront"); // Define Left Drive
-		arm_1 = Map.dcMotor.get( "ArmRight"); // Define Right Arm
-		arm_2 = Map.dcMotor.get( "ArmLeft"); // Define Left Arm
-		armReel = Map.dcMotor.get( "armReel"); // Define Glyph Reel
-		Jewel = Map.servo.get("ArmJewel"); // Define Jewel Arm
+		/** Find Motors/Servos in the configuration and pull into code **/
 
+		leftBack = Map.dcMotor.get("leftBack");
+		leftFront = Map.dcMotor.get("leftFront");
+		rightBack = Map.dcMotor.get("rightBack");
+		rightFront = Map.dcMotor.get("rightFront");
+		armRight = Map.dcMotor.get("armRight");
+		armLeft = Map.dcMotor.get("armLeft");
+		reel = Map.dcMotor.get("reel");
+		pulley = Map.dcMotor.get("pulley");
+		jewel = Map.servo.get("armJewel");
+		relicGrip = Map.servo.get("relicGrip");
+		relicLift = Map.servo.get("relicLift");
+		jewelSensor= Map.colorSensor.get("jewelSensor");
+	}
+
+	public void testmapinit(HardwareMap TestMap) {
+
+		jewelSensor = TestMap.colorSensor.get("jewelSensor");
 
 	}
+
+
 		/** defines all actions for Autonomous **/
 
 
+
+
+	void servoInit() {
+		jewel.setPosition(1);
+		relicLift.setPosition(0.5);
+		relicGrip.setPosition(0);
+	}
+
+	void setJewelPosition(double Position) {
+		jewel.setPosition(Position);
+	}
 
 
 	void setDriveForward() {
@@ -162,7 +194,6 @@ public class Definitions  {
 		rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 		rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 	}
-
 
 
 
