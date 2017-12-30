@@ -20,12 +20,14 @@ public class Beta extends LinearOpMode{
 		telemetry.addData("Position on Field (with reference to the Relic matt", "back right");
 		telemetry.addData("Status", "Initialized");
 		telemetry.addData("Jewel", "Not Gotten");
+		telemetry.addData("In Tape", "No");
 		telemetry.update();
 
 
 		boolean jewelGotten = false;
 		boolean FORWARD = false;
 		boolean BACKWARD = false;
+		boolean intape = false;
 
 
 
@@ -55,7 +57,8 @@ public class Beta extends LinearOpMode{
 		if (runtime.seconds() <= 5) {
 			robot.resetEncoders();
 			robot.setJewelPosition(0.6);
-			if(robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0){
+
+			if (robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotLeft();
 				robot.rotLeft(0.3);
 				robot.setJewelPosition(1);
@@ -66,8 +69,9 @@ public class Beta extends LinearOpMode{
 				BACKWARD = false;
 				telemetry.addData("Jewel", "Gotten!");
 				telemetry.update();
+				robot.waitForDriveStop();
 
-			} else if ((robot.jewelSensor.blue() <= 2 && robot.jewelSensor.red() >= 3 && robot.jewelSensor.green() >= 0)){
+			} else if (robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotRight();
 				robot.rotRight(0.3);
 				robot.setJewelPosition(1);
@@ -76,27 +80,52 @@ public class Beta extends LinearOpMode{
 				BACKWARD = true;
 				telemetry.addData("Jewel", "Gotten!");
 				telemetry.update();
+				robot.waitForDriveStop();
+			} else if (runtime.seconds() >= 5) {
+				robot.setJewelPosition(1);
+				jewelGotten = false;
+				FORWARD = false;
+				BACKWARD = false;
+				telemetry.addData("Jewel", "Not Gotten");
+				telemetry.update();
+			} else {
+				stop();
 			}
-
-		} else {
-			jewelGotten = false;
-			telemetry.addData("Jewel", "Not Gotten");
-			telemetry.update();
 		}
 
-		if((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false) && (runtime.seconds() <= 10)){
-			robot.resetEncoders();
-			robot.setRotRight();
-			robot.rotRight(0.3);
-			robot.setDriveBackward();
-			robot.backward(0.5);
-			robot.setPos(500);
-			robot.runPos();
-		} else if((jewelGotten = true) && (FORWARD = false) && (BACKWARD = true) && (runtime.seconds() <= 10)) {
 
+		if (runtime.seconds() <= 10) {
+			if ((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false)) {
+				robot.resetEncoders();
+				robot.setRotRight();
+				robot.rotRight(0.3);
+				robot.setDriveBackward();
+				robot.backward(0.5);
+				robot.setPos(500);
+				robot.runPos();
+				robot.waitForDriveStop();
+				intape = true;
+			} else if ((jewelGotten = true) && (FORWARD = false) && (BACKWARD = true)) {
+				robot.resetEncoders();
+				robot.setDriveBackward();
+				robot.backward(0.5);
+				robot.setPos(500);
+				robot.runPos();
+				robot.waitForDriveStop();
+				intape = true;
+			} else if ((jewelGotten = false) && (FORWARD = false) && (BACKWARD = false)) {
+				robot.resetEncoders();
+				robot.setDriveBackward();
+				robot.backward(0.5);
+				robot.setPos(500);
+				robot.runPos();
+				robot.waitForDriveStop();
+				intape = true;
+			} else {
+				stop();
 			}
 
-
+		}
 
 
 

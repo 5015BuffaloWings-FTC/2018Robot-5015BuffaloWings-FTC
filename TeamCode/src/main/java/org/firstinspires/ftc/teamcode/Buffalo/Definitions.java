@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
- * Created by CHSRobotics on 12/23/2017.
+ * Created for team: 5015 Buffalo Wings by Noah Zulick on December 23, 2017 at 4:36 PM .
  */
 
 public class Definitions  {
@@ -28,7 +28,6 @@ public class Definitions  {
 	Servo relicLift = null;
 	Servo relicGrip = null;
 	ColorSensor jewelSensor = null;
-	private HardwareMap testMap;
 	double comp = 0;
 	double slow = 1;
 	double grab = 0;
@@ -51,14 +50,15 @@ public class Definitions  {
 		reel = Map.dcMotor.get("reel");
 		pulley = Map.dcMotor.get("pulley");
 		jewel = Map.servo.get("armJewel");
-		relicGrip = Map.servo.get("relicGrip");
-		relicLift = Map.servo.get("relicLift");
+		//relicGrip = Map.servo.get("relicGrip");
+		//relicLift = Map.servo.get("relicLift");
 		jewelSensor= Map.colorSensor.get("jewelSensor");
 	}
 
 	public void testmapinit(HardwareMap TestMap) {
 
 		jewelSensor = TestMap.colorSensor.get("jewelSensor");
+		jewel = TestMap.servo.get("armJewel");
 
 	}
 
@@ -70,8 +70,6 @@ public class Definitions  {
 
 	void servoInit() {
 		jewel.setPosition(1);
-		relicLift.setPosition(0.5);
-		relicGrip.setPosition(0);
 	}
 
 	void setJewelPosition(double Position) {
