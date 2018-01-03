@@ -172,11 +172,18 @@ public class Definitions  {
 		rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 	}
 
-	void setPos(int pos) {
-		leftBack.setTargetPosition(pos);
-		leftFront.setTargetPosition(pos);
-		rightBack.setTargetPosition(pos);
-		rightFront.setTargetPosition(pos);
+	void setBigPos(int pos) {
+		leftBack.setTargetPosition(pos*92);
+		leftFront.setTargetPosition(pos*92);
+		rightBack.setTargetPosition(pos*92);
+		rightFront.setTargetPosition(pos*92);
+	}
+	
+	void setRotPos(int pos){
+		leftBack.setTargetPosition(pos*16*(6/10));
+		leftFront.setTargetPosition(pos*16*(6/10));
+		rightBack.setTargetPosition(pos*16*(6/10));
+		rightFront.setTargetPosition(pos*16*(6/10));
 	}
 
 	void runPos() {

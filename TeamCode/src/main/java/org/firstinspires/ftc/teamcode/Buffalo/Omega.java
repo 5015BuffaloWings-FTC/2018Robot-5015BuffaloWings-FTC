@@ -29,8 +29,8 @@ public class Omega extends LinearOpMode {
 
 			telemetry.addData("Run Time", robot.runtime.toString());
 			telemetry.addData("Jewel Position", robot.jewel.getPosition());
-			telemetry.addData("Relic Lift Position", robot.relicLift.getPosition());
-			telemetry.addData("Relic Grip Position", robot.relicLift.getPosition());
+		//	telemetry.addData("Relic Lift Position", robot.relicLift.getPosition());
+		//	telemetry.addData("Relic Grip Position", robot.relicLift.getPosition());
 			telemetry.update();
 
 			/**
@@ -79,7 +79,7 @@ public class Omega extends LinearOpMode {
 				robot.comp = 0;
 			}
 
-			double AR = robot.comp+((0.1*-gamepad2.right_stick_x)+(0.15*-gamepad2.right_stick_y)); //idk what im doing -Noah
+			double AR = robot.comp+((0.1*-gamepad2.right_stick_x)+(0.15*-gamepad2.right_stick_y));
 			double AL = -robot.comp+((0.1*-gamepad2.left_stick_x)+(0.15*gamepad2.right_stick_y));
 
 			robot.armRight.setPower(AR);
@@ -100,7 +100,7 @@ public class Omega extends LinearOpMode {
 			/**Relic Grabber/Gripper Code**/
 			/********************************/
 
-			if(gamepad2.dpad_up && !gamepad2.dpad_down) {
+		/*	if(gamepad2.dpad_up && !gamepad2.dpad_down) {
 				robot.relicLift.setDirection(Servo.Direction.FORWARD);
 			}
 			else if(!gamepad2.dpad_up && gamepad2.dpad_down) {
@@ -114,7 +114,7 @@ public class Omega extends LinearOpMode {
 				robot.relicGrip.setPosition(0.1);
 			} else {
 				robot.relicGrip.setPosition(0);
-			}
+			} */
 
 
 

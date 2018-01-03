@@ -46,15 +46,24 @@ public class Delta extends LinearOpMode{
 					.addData("Red", robot.jewelSensor.red())
 					.addData("Green", robot.jewelSensor.green());
 			telemetry.update();
-			robot.setJewelPosition(0.27);
 
-			robot.wait(10);
 
 			robot.setDriveForward();
-			robot.setPos(500);
+			robot.setBigPos(6);
 			robot.forward(0.3);
 			robot.runPos();
 			robot.waitForDriveStop();
+
+			sleep(100);
+
+			robot.resetEncoders();
+			robot.setRotLeft();
+			robot.setRotPos(90);
+			robot.rotLeft(0.3);
+			robot.runPos();
+			robot.waitForDriveStop();
+
+			stop();
 		}
 
 	}

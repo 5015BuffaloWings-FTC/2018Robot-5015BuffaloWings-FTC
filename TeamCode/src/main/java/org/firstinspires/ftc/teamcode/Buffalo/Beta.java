@@ -101,7 +101,7 @@ public class Beta extends LinearOpMode{
 				robot.rotRight(0.3);
 				robot.setDriveBackward();
 				robot.backward(0.5);
-				robot.setPos(500);
+				robot.setBigPos(500);
 				robot.runPos();
 				robot.waitForDriveStop();
 				intape = true;
@@ -109,7 +109,7 @@ public class Beta extends LinearOpMode{
 				robot.resetEncoders();
 				robot.setDriveBackward();
 				robot.backward(0.5);
-				robot.setPos(500);
+				robot.setBigPos(500);
 				robot.runPos();
 				robot.waitForDriveStop();
 				intape = true;
@@ -117,7 +117,7 @@ public class Beta extends LinearOpMode{
 				robot.resetEncoders();
 				robot.setDriveBackward();
 				robot.backward(0.5);
-				robot.setPos(500);
+				robot.setBigPos(500);
 				robot.runPos();
 				robot.waitForDriveStop();
 				intape = true;
