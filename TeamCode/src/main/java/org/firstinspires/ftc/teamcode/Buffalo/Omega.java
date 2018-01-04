@@ -25,36 +25,32 @@ public class Omega extends LinearOpMode {
 		waitForStart();
 		robot.runtime.reset();
 
-		while(opModeIsActive());{
+		while(opModeIsActive()){
 
-			telemetry.addData("Run Time", robot.runtime.toString());
-			telemetry.addData("Jewel Position", robot.jewel.getPosition());
-		//	telemetry.addData("Relic Lift Position", robot.relicLift.getPosition());
-		//	telemetry.addData("Relic Grip Position", robot.relicLift.getPosition());
-			telemetry.update();
+
 
 			/**
 			 * Actions with Game Pad 1
 			 **/
-
+			double slow;
 
 			if (gamepad1.right_bumper && !gamepad1.left_bumper) {
-				robot.slow = 0.2;
+				slow = 0.2;
 			}
 			else if (!gamepad1.right_bumper && gamepad1.left_bumper) {
-				robot.slow = (2/5);
+				slow = (2/5);
 			}
 			else if (gamepad1.right_bumper && gamepad1.left_bumper){
-				robot.slow = 2;
+				slow = 2;
 			}
 			else {
-				robot.slow = 1;
+				slow = 1;
 			}
 
-			double DFR = Range.clip(robot.slow*0.5*(-gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
-			double DFL = Range.clip(robot.slow*0.5*(gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
-			double DBR = Range.clip(robot.slow*0.5*(-gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
-			double DBL = Range.clip(robot.slow*0.5*(gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
+			double DFR = Range.clip(slow*0.5*(-gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
+			double DFL = Range.clip(slow*0.5*(gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
+			double DBR = Range.clip(slow*0.5*(-gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
+			double DBL = Range.clip(slow*0.5*(gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
 
 			robot.rightFront.setPower(DFR);
 			robot.leftFront.setPower(DFL);
@@ -117,6 +113,13 @@ public class Omega extends LinearOpMode {
 			} */
 
 
+
+
+			telemetry.addData("Run Time", robot.runtime.toString());
+			telemetry.addData("Jewel Position", robot.jewel.getPosition());
+			//	telemetry.addData("Relic Lift Position", robot.relicLift.getPosition());
+			//	telemetry.addData("Relic Grip Position", robot.relicLift.getPosition());
+			telemetry.update();
 
 
 		}

@@ -29,7 +29,6 @@ public class Definitions  {
 	Servo relicGrip = null;
 	ColorSensor jewelSensor = null;
 	double comp = 0;
-	double slow = 1;
 	double grab = 0;
 
 	public Definitions() {
@@ -69,7 +68,7 @@ public class Definitions  {
 
 
 	void servoInit() {
-		jewel.setPosition(1);
+		jewel.setPosition(1.1);
 	}
 
 	void setJewelPosition(double Position) {

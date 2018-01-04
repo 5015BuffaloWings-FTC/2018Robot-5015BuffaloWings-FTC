@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 29, 2017 at 11:41 AM .
  */
-@Autonomous (name = "Auto Test")
+@Autonomous (name = "Auto Test v1.1")
 public class Delta extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
@@ -48,22 +48,17 @@ public class Delta extends LinearOpMode{
 			telemetry.update();
 
 
-			robot.setDriveForward();
-			robot.setBigPos(6);
-			robot.forward(0.3);
-			robot.runPos();
-			robot.waitForDriveStop();
-
-			sleep(100);
-
-			robot.resetEncoders();
+			robot.setJewelPosition(0.17);
+			sleep(1000);
 			robot.setRotLeft();
-			robot.setRotPos(90);
-			robot.rotLeft(0.3);
+			robot.setRotPos(10);
 			robot.runPos();
+			robot.rotLeft(0.3);
 			robot.waitForDriveStop();
 
 			stop();
+
+
 		}
 
 	}

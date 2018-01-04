@@ -2,13 +2,14 @@ package org.firstinspires.ftc.teamcode.Buffalo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 28, 2017 at 2:50 PM .
  */
 
-@Autonomous (name = "Autonomous beta v.2.1.6")
+@Autonomous (name = "Autonomous beta v.2.1.7")
 public class Beta extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
@@ -34,7 +35,6 @@ public class Beta extends LinearOpMode{
 		robot.init(hardwareMap);
 		robot.encoderInit();
 		robot.servoInit();
-		robot.jewelSensor.enableLed(true);
 
 
 
@@ -55,14 +55,21 @@ public class Beta extends LinearOpMode{
 
 
 		if (runtime.seconds() <= 5) {
-			robot.resetEncoders();
-			robot.setJewelPosition(0.6);
+			robot.setJewelPosition(0.17);
+			sleep(1000);
+			robot.jewelSensor.enableLed(true);
 
-			if (robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0) {
+			if (robot.jewelSensor.blue() <= 2 && robot.jewelSensor.red() >= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotLeft();
+				robot.resetEncoders();
+				robot.setRotPos(10);
+				robot.runPos();
 				robot.rotLeft(0.3);
 				robot.setJewelPosition(1);
 				robot.setRotRight();
+				robot.resetEncoders();
+				robot.setRotPos(10);
+				robot.runPos();
 				robot.rotRight(0.6);
 				jewelGotten = true;
 				FORWARD = true;
@@ -73,6 +80,9 @@ public class Beta extends LinearOpMode{
 
 			} else if (robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotRight();
+				robot.resetEncoders();
+				robot.setRotPos(10);
+				robot.runPos();
 				robot.rotRight(0.3);
 				robot.setJewelPosition(1);
 				jewelGotten = true;
@@ -93,7 +103,7 @@ public class Beta extends LinearOpMode{
 			}
 		}
 
-
+/*
 		if (runtime.seconds() <= 10) {
 			if ((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false)) {
 				robot.resetEncoders();
@@ -125,7 +135,7 @@ public class Beta extends LinearOpMode{
 				stop();
 			}
 
-		}
+		} */
 
 
 
