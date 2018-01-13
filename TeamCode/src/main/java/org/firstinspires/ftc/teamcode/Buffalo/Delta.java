@@ -30,6 +30,7 @@ public class Delta extends LinearOpMode{
 
 		robot.init(hardwareMap);
 		robot.servoInit();
+		robot.encoderInit();
 		robot.jewelSensor.enableLed(true);
 
 
@@ -51,12 +52,12 @@ public class Delta extends LinearOpMode{
 			robot.setJewelPosition(0.17);
 			sleep(1000);
 			robot.setRotLeft();
-			robot.setRotPos(10);
+			robot.setRotPos(30);
 			robot.runPos();
-			robot.rotLeft(0.3);
+			robot.setPower(0.8);
 			robot.waitForDriveStop();
 
-			stop();
+
 
 
 		}

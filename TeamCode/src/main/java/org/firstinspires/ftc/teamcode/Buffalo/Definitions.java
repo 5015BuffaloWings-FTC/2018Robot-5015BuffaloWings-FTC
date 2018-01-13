@@ -120,48 +120,13 @@ public class Definitions  {
 
 
 
-	void forward(double power){
+	void setPower(double power){
 		leftBack.setPower(power);
 		leftFront.setPower(power);
 		rightBack.setPower(power);
 		rightFront.setPower(power);
 	}
 
-	void backward(double power){
-		leftBack.setPower(power);
-		leftFront.setPower(power);
-		rightBack.setPower(power);
-		rightFront.setPower(power);
-	}
-
-
-	void rotLeft(double power) {
-		leftBack.setPower(power);
-		leftFront.setPower(power);
-		rightBack.setPower(power);
-		rightFront.setPower(power);
-	}
-
-	void rotRight(double power) {
-		leftBack.setPower(power);
-		leftFront.setPower(power);
-		rightBack.setPower(power);
-		rightFront.setPower(power);
-	}
-
-	void strafeLeft(double power){
-		leftBack.setPower(power);
-		leftFront.setPower(power);
-		rightBack.setPower(power);
-		rightFront.setPower(power);
-	}
-
-	void strafeRight(double power){
-		leftBack.setPower(power);
-		leftFront.setPower(power);
-		rightBack.setPower(power);
-		rightFront.setPower(power);
-	}
 
 
 	void encoderInit(){
@@ -179,10 +144,10 @@ public class Definitions  {
 	}
 	
 	void setRotPos(int pos){
-		leftBack.setTargetPosition(pos*16*(6/10));
-		leftFront.setTargetPosition(pos*16*(6/10));
-		rightBack.setTargetPosition(pos*16*(6/10));
-		rightFront.setTargetPosition(pos*16*(6/10));
+		leftBack.setTargetPosition((pos*1120)/360);
+		leftFront.setTargetPosition((pos*1120)/360);
+		rightBack.setTargetPosition((pos*1120)/360);
+		rightFront.setTargetPosition((pos*1120)/360);
 	}
 
 	void runPos() {

@@ -57,11 +57,11 @@ public class Omega extends LinearOpMode {
 			robot.rightBack.setPower(DBR);
 			robot.leftBack.setPower(DBL);
 
-
+/*
 			double PU = Range.clip((gamepad1.right_stick_y), -1, 1);
 
 			robot.pulley.setPower(PU);
-
+*/
 
 
 
