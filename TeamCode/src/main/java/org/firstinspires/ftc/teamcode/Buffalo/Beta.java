@@ -62,17 +62,17 @@ public class Beta extends LinearOpMode{
 			if (robot.jewelSensor.blue() <= 2 && robot.jewelSensor.red() >= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotLeft();
 				robot.resetEncoders();
-				robot.setRotPos(100);
-				robot.runPos();
+				robot.setRotPos(50);
 				robot.setPower(0.8);
+				robot.runPos();
 				robot.waitForDriveStop();
 				robot.setJewelPosition(1);
 				sleep(1000);
 				robot.setRotRight();
 				robot.resetEncoders();
-				robot.setRotPos(100);
-				robot.runPos();
+				robot.setRotPos(50);
 				robot.setPower(0.8);
+				robot.runPos();
 				jewelGotten = true;
 				FORWARD = true;
 				BACKWARD = false;
@@ -84,8 +84,8 @@ public class Beta extends LinearOpMode{
 				robot.setRotRight();
 				robot.resetEncoders();
 				robot.setRotPos(100);
-				robot.runPos();
 				robot.setPower(0.8);
+				robot.runPos();
 				robot.waitForDriveStop();
 				robot.setJewelPosition(1);
 				sleep(1000);
