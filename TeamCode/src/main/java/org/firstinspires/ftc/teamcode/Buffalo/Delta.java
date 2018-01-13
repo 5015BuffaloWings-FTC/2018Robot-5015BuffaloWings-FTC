@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 29, 2017 at 11:41 AM .
  */
-@Autonomous (name = "Auto Test v1.1")
+@Autonomous (name = "Auto Test v 2.0.0")
 public class Delta extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
@@ -37,24 +37,19 @@ public class Delta extends LinearOpMode{
 
 		waitForStart();
 		runtime.reset();
+		robot.resetEncoders();
 
 
 		while(opModeIsActive()) {
 
 			telemetry.addData("Status", "Running");
-			telemetry.addLine()
-					.addData("Blue", robot.jewelSensor.blue())
-					.addData("Red", robot.jewelSensor.red())
-					.addData("Green", robot.jewelSensor.green());
 			telemetry.update();
 
 
-			robot.setJewelPosition(0.17);
-			sleep(1000);
-			robot.setRotLeft();
-			robot.setRotPos(30);
+			robot.setDriveForward();
+			robot.setBigPos(40);
 			robot.runPos();
-			robot.setPower(0.8);
+			robot.setPower(0.6);
 			robot.waitForDriveStop();
 
 

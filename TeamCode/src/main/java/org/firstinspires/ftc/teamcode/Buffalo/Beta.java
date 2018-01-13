@@ -54,15 +54,20 @@ public class Beta extends LinearOpMode{
 
 
 
-		if (runtime.seconds() <= 5) {
+		if (runtime.seconds() <= 10) {
 			robot.setJewelPosition(0.17);
 			sleep(1000);
 			robot.jewelSensor.enableLed(true);
+			robot.resetEncoders();
 
 			if (robot.jewelSensor.blue() <= 2 && robot.jewelSensor.red() >= 2 && robot.jewelSensor.green() >= 0) {
+				telemetry.addLine()
+						.addData("Blue", robot.jewelSensor.blue())
+						.addData("Red", robot.jewelSensor.red())
+						.addData("Green", robot.jewelSensor.green());
+				telemetry.update();
 				robot.setRotLeft();
-				robot.resetEncoders();
-				robot.setRotPos(50);
+				robot.setRotPos(30);
 				robot.setPower(0.8);
 				robot.runPos();
 				robot.waitForDriveStop();
@@ -70,7 +75,7 @@ public class Beta extends LinearOpMode{
 				sleep(1000);
 				robot.setRotRight();
 				robot.resetEncoders();
-				robot.setRotPos(50);
+				robot.setRotPos(30);
 				robot.setPower(0.8);
 				robot.runPos();
 				jewelGotten = true;
@@ -83,7 +88,7 @@ public class Beta extends LinearOpMode{
 			} else if (robot.jewelSensor.blue() >= 3 && robot.jewelSensor.red() <= 2 && robot.jewelSensor.green() >= 0) {
 				robot.setRotRight();
 				robot.resetEncoders();
-				robot.setRotPos(100);
+				robot.setRotPos(30);
 				robot.setPower(0.8);
 				robot.runPos();
 				robot.waitForDriveStop();
@@ -140,7 +145,6 @@ public class Beta extends LinearOpMode{
 		} */
 
 
-		stop();
 
 		}
 
