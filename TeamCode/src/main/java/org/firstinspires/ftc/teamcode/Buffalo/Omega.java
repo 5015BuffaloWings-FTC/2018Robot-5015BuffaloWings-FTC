@@ -63,6 +63,14 @@ public class Omega extends LinearOpMode {
 			robot.pulley.setPower(PU);
 */
 
+			if(!gamepad1.dpad_down && gamepad1.dpad_up){
+				robot.pulley.setPower(0.5);
+			} else if (gamepad1.dpad_down && !gamepad1.dpad_up){
+				robot.pulley.setPower(-0.5);
+			} else {
+				robot.pulley.setPower(0);
+			}
+
 
 
 			/**
