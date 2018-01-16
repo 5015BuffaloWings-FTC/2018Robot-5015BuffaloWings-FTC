@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Buffalo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -8,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 28, 2017 at 2:50 PM .
  */
-
+@Disabled
 @Autonomous (name = "WE ARE BLUE TEAM")
 public class Beta extends LinearOpMode{
 

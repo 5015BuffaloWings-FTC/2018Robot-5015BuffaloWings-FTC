@@ -49,7 +49,10 @@ public class Phi extends LinearOpMode{
 			telemetry.addLine()
 					.addData("Status", "Running")
 					.addData("Run Time", robot.runtime.toString());
-
+			telemetry.addLine()
+					.addData("Blue", robot.jewelSensor.blue())
+					.addData("Red", robot.jewelSensor.red())
+					.addData("Green", robot.jewelSensor.green());
 			telemetry.update();
 
 
@@ -59,13 +62,8 @@ public class Phi extends LinearOpMode{
 				sleep(1000);
 				robot.jewelSensor.enableLed(true);
 				robot.resetEncoders();
-				telemetry.addLine()
-						.addData("Blue", robot.jewelSensor.blue())
-						.addData("Red", robot.jewelSensor.red())
-						.addData("Green", robot.jewelSensor.green());
-				telemetry.update();
 
-				if (robot.jewelSensor.blue() < 0 || robot.jewelSensor.red() < 0){
+				if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0){
 					robot.setRotLeft();
 					robot.setPower(0.2);
 				} else if (robot.jewelSensor.blue() > robot.jewelSensor.red()) {
