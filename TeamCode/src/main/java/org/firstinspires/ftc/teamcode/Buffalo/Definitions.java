@@ -68,7 +68,7 @@ public class Definitions  {
 
 
 	void servoInit() {
-		jewel.setPosition(1.1);
+		jewel.setPosition(1);
 	}
 
 	void setJewelPosition(double Position) {
@@ -118,16 +118,12 @@ public class Definitions  {
 		rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
 	}
 
-
-
 	void setPower(double power){
 		leftBack.setPower(power);
 		leftFront.setPower(power);
 		rightBack.setPower(power);
 		rightFront.setPower(power);
 	}
-
-
 
 	void encoderInit(){
 		leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -164,7 +160,35 @@ public class Definitions  {
 		rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 	}
 
+	private int motorTicks = 1120;
+	private int wheelDiameter = 4;
 
+	public void posDegree(double degreesToRotate){
+		int T = motorTicks;
+		double Rd = 17.5;
+		double Wd = wheelDiameter;
+
+		int poss = (int) (((Rd/Wd)*(T/360))+0.5);
+
+		leftBack.setTargetPosition(poss + leftBack.getCurrentPosition());
+		leftFront.setTargetPosition(poss + leftFront.getCurrentPosition());
+		rightBack.setTargetPosition(poss + rightBack.getCurrentPosition());
+		rightFront.setTargetPosition(poss + rightFront.getCurrentPosition());
+	}
+
+
+	public void posINCH(double pos){
+		double toInch = motorTicks/(wheelDiameter*Math.PI);
+
+		int poss = (int) (pos*toInch);
+
+		leftBack.setTargetPosition(poss + leftBack.getCurrentPosition());
+		leftFront.setTargetPosition(poss + leftFront.getCurrentPosition());
+		rightBack.setTargetPosition(poss + rightBack.getCurrentPosition());
+		rightFront.setTargetPosition(poss + rightFront.getCurrentPosition());
+	}
+
+	public void driveForwardINCH (double Inches, double powerStart);
 
 
 	//Waits for the drive motor(s) to stop rotating
