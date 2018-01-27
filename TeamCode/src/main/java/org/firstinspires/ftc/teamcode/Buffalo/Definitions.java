@@ -197,6 +197,4 @@ public class Definitions  {
 			if (!(leftBack.isBusy())) break;
 		}
 	}
-
-
 }

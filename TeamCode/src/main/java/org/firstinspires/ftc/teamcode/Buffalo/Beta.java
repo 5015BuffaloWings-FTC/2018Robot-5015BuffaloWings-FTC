@@ -67,21 +67,21 @@ public class Beta extends LinearOpMode{
 			telemetry.update();
 
 			if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0 && !jewelGotten) {
-				robot.setRotLeft();
-				robot.setRotPos(10);
+				robot.setDriveForward();
+				robot.setBigPos(1);
 				robot.runPos();
 				robot.setPower(0.2);
 				robot.waitForDriveStop();
 
 
 			} else if (robot.jewelSensor.blue() < robot.jewelSensor.red()) {
+				robot.resetEncoders();
 				robot.setDriveForward();
-				robot.setBigPos(500);
+				robot.setBigPos(25);
 				robot.runPos();
 				robot.setPower(0.8);
 				robot.waitForDriveStop();
 				robot.setPower(0);
-				sleep(1000);
 				robot.setJewelPosition(1);
 				jewelGotten = true;
 				FORWARD = true;
@@ -91,13 +91,13 @@ public class Beta extends LinearOpMode{
 
 
 			} else if (robot.jewelSensor.blue() > robot.jewelSensor.red()) {
+				robot.resetEncoders();
 				robot.setDriveBackward();
-				robot.setBigPos(100);
+				robot.setBigPos(25);
 				robot.runPos();
 				robot.setPower(0.8);
 				robot.waitForDriveStop();
 				robot.setPower(0);
-				sleep(1000);
 				robot.setJewelPosition(1);
 				jewelGotten = true;
 				FORWARD = false;

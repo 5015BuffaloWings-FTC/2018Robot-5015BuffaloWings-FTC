@@ -67,19 +67,18 @@ public class Phi extends LinearOpMode{
 
 				if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0 && !jewelGotten){
 					robot.setDriveForward();
-					robot.setBigPos(10);
+					robot.setBigPos(1);
 					robot.runPos();
-					robot.setPower(0.2);
+					robot.setPower(0.1);
 					robot.waitForDriveStop();
 					robot.setPower(0);
 				} else if (robot.jewelSensor.blue() > robot.jewelSensor.red()) {
 					robot.setDriveForward();
-					robot.setBigPos(500);
+					robot.setBigPos(50);
 					robot.runPos();
 					robot.setPower(0.8);
 					robot.waitForDriveStop();
 					robot.setPower(0);
-					sleep(1000);
 					robot.setJewelPosition(1);
 					jewelGotten = true;
 					FORWARD = true;
@@ -90,12 +89,11 @@ public class Phi extends LinearOpMode{
 
 				} else if (robot.jewelSensor.blue() < robot.jewelSensor.red()) {
 					robot.setDriveBackward();
-					robot.setBigPos(50);
+					robot.setBigPos(25);
 					robot.runPos();
 					robot.setPower(0.8);
 					robot.waitForDriveStop();
 					robot.setPower(0);
-					sleep(1000);
 					robot.setJewelPosition(1);
 					jewelGotten = true;
 					FORWARD = false;
