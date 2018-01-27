@@ -188,7 +188,7 @@ public class Definitions  {
 		rightFront.setTargetPosition(poss + rightFront.getCurrentPosition());
 	}
 
-	public void driveForwardINCH (double Inches, double powerStart);
+	//public void driveForwardINCH (double Inches, double powerStart);
 
 
 	//Waits for the drive motor(s) to stop rotating

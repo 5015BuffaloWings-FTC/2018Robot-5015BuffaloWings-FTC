@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 28, 2017 at 2:50 PM .
  */
-@Disabled
+
 @Autonomous (name = "WE ARE BLUE TEAM")
 public class Beta extends LinearOpMode{
 
@@ -66,19 +66,23 @@ public class Beta extends LinearOpMode{
 					.addData("Green", robot.jewelSensor.green());
 			telemetry.update();
 
-			if (robot.jewelSensor.blue() < robot.jewelSensor.red()) {
+			if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0 && !jewelGotten) {
 				robot.setRotLeft();
-				robot.setRotPos(50);
+				robot.setRotPos(10);
+				robot.runPos();
+				robot.setPower(0.2);
+				robot.waitForDriveStop();
+
+
+			} else if (robot.jewelSensor.blue() < robot.jewelSensor.red()) {
+				robot.setDriveForward();
+				robot.setBigPos(500);
 				robot.runPos();
 				robot.setPower(0.8);
 				robot.waitForDriveStop();
-				robot.setJewelPosition(1);
+				robot.setPower(0);
 				sleep(1000);
-				robot.setRotRight();
-				robot.resetEncoders();
-				robot.setRotPos(50);
-				robot.runPos();
-				robot.setPower(0.8);
+				robot.setJewelPosition(1);
 				jewelGotten = true;
 				FORWARD = true;
 				BACKWARD = false;
@@ -87,14 +91,14 @@ public class Beta extends LinearOpMode{
 
 
 			} else if (robot.jewelSensor.blue() > robot.jewelSensor.red()) {
-				robot.setRotRight();
-				robot.resetEncoders();
-				robot.setRotPos(50);
+				robot.setDriveBackward();
+				robot.setBigPos(100);
 				robot.runPos();
 				robot.setPower(0.8);
 				robot.waitForDriveStop();
-				robot.setJewelPosition(1);
+				robot.setPower(0);
 				sleep(1000);
+				robot.setJewelPosition(1);
 				jewelGotten = true;
 				FORWARD = false;
 				BACKWARD = true;
@@ -102,6 +106,7 @@ public class Beta extends LinearOpMode{
 				telemetry.update();
 
 			} else if (runtime.seconds() >= 5 && !jewelGotten) {
+				robot.setJewelPosition(1);
 				jewelGotten = false;
 				FORWARD = false;
 				BACKWARD = false;
@@ -111,12 +116,10 @@ public class Beta extends LinearOpMode{
 		}
 
 /*
-		if (runtime.seconds() <= 10) {
+		if (runtime.seconds() >= 5 && runtime.seconds() <= 10 && jewelGotten {
 			if ((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false)) {
 				robot.resetEncoders();
-				robot.setRotRight();
-				robot.setPower(0.3);
-				robot.setDriveBackward();
+				robot.setDriveForward();
 				robot.setPower(0.5);
 				robot.setBigPos(500);
 				robot.runPos();
@@ -124,15 +127,15 @@ public class Beta extends LinearOpMode{
 				intape = true;
 			} else if ((jewelGotten = true) && (FORWARD = false) && (BACKWARD = true)) {
 				robot.resetEncoders();
-				robot.setDriveBackward();
+				robot.setDriveForward();
 				robot.setPower(0.5);
 				robot.setBigPos(500);
 				robot.runPos();
 				robot.waitForDriveStop();
 				intape = true;
-			} else if ((jewelGotten = false) && (FORWARD = false) && (BACKWARD = false)) {
+			} else if (!jewelGotten && !FORWARD && !BACKWARD) {
 				robot.resetEncoders();
-				robot.setDriveBackward();
+				robot.setDriveForward();
 				robot.setPower(0.5);
 				robot.setBigPos(500);
 				robot.runPos();
@@ -142,8 +145,8 @@ public class Beta extends LinearOpMode{
 				stop();
 			}
 
-		}
-*/
+		}*/
+
 
 
 		}

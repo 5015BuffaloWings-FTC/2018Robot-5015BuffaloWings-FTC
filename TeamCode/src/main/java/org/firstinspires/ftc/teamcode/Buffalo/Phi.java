@@ -65,22 +65,22 @@ public class Phi extends LinearOpMode{
 				robot.jewelSensor.enableLed(true);
 				robot.resetEncoders();
 
-				if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0){
-					robot.setRotLeft();
+				if (robot.jewelSensor.blue() == 0 && robot.jewelSensor.red() == 0 && !jewelGotten){
+					robot.setDriveForward();
+					robot.setBigPos(10);
+					robot.runPos();
 					robot.setPower(0.2);
+					robot.waitForDriveStop();
+					robot.setPower(0);
 				} else if (robot.jewelSensor.blue() > robot.jewelSensor.red()) {
-					robot.setRotLeft();
-					robot.setRotPos(50);
+					robot.setDriveForward();
+					robot.setBigPos(500);
 					robot.runPos();
 					robot.setPower(0.8);
 					robot.waitForDriveStop();
-					robot.setJewelPosition(1);
+					robot.setPower(0);
 					sleep(1000);
-					robot.setRotRight();
-					robot.resetEncoders();
-					robot.setRotPos(50);
-					robot.runPos();
-					robot.setPower(0.8);
+					robot.setJewelPosition(1);
 					jewelGotten = true;
 					FORWARD = true;
 					BACKWARD = false;
@@ -89,14 +89,14 @@ public class Phi extends LinearOpMode{
 
 
 				} else if (robot.jewelSensor.blue() < robot.jewelSensor.red()) {
-					robot.setRotRight();
-					robot.resetEncoders();
-					robot.setRotPos(50);
+					robot.setDriveBackward();
+					robot.setBigPos(50);
 					robot.runPos();
 					robot.setPower(0.8);
 					robot.waitForDriveStop();
-					robot.setJewelPosition(1);
+					robot.setPower(0);
 					sleep(1000);
+					robot.setJewelPosition(1);
 					jewelGotten = true;
 					FORWARD = false;
 					BACKWARD = true;
@@ -112,43 +112,37 @@ public class Phi extends LinearOpMode{
 				}
 			}
 
-/*
-		if (runtime.seconds() <= 10) {
-			if ((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false)) {
-				robot.resetEncoders();
-				robot.setRotRight();
-				robot.setPower(0.3);
-				robot.setDriveBackward();
-				robot.setPower(0.5);
-				robot.setBigPos(500);
-				robot.runPos();
-				robot.waitForDriveStop();
-				intape = true;
-			} else if ((jewelGotten = true) && (FORWARD = false) && (BACKWARD = true)) {
-				robot.resetEncoders();
-				robot.setDriveBackward();
-				robot.setPower(0.5);
-				robot.setBigPos(500);
-				robot.runPos();
-				robot.waitForDriveStop();
-				intape = true;
-			} else if ((jewelGotten = false) && (FORWARD = false) && (BACKWARD = false)) {
-				robot.resetEncoders();
-				robot.setDriveBackward();
-				robot.setPower(0.5);
-				robot.setBigPos(500);
-				robot.runPos();
-				robot.waitForDriveStop();
-				intape = true;
-			} else {
-				stop();
+		/*	if (runtime.seconds() >= 5 && runtime.seconds() <= 10 && jewelGotten) {
+				if ((jewelGotten = true) && (FORWARD = true) && (BACKWARD = false)) {
+					robot.resetEncoders();
+					robot.setDriveForward();
+					robot.setPower(0.5);
+					robot.setBigPos(500);
+					robot.runPos();
+					robot.waitForDriveStop();
+					intape = true;
+				} else if ((jewelGotten = true) && (FORWARD = false) && (BACKWARD = true)) {
+					robot.resetEncoders();
+					robot.setDriveForward();
+					robot.setPower(0.5);
+					robot.setBigPos(500);
+					robot.runPos();
+					robot.waitForDriveStop();
+					intape = true;
+				} else if (!jewelGotten && !FORWARD && !BACKWARD) {
+					robot.resetEncoders();
+					robot.setDriveForward();
+					robot.setPower(0.5);
+					robot.setBigPos(500);
+					robot.runPos();
+					robot.waitForDriveStop();
+					intape = true;
+				} else {
+					stop();
+				}
+
 			}
-
-		}
-*/
-
-
-		}
+*/		}
 
 	}
 
