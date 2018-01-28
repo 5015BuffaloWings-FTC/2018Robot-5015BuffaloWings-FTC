@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 29, 2017 at 11:41 AM .
  */
 @Autonomous (name = "Auto Test v 2.0.0")
-public class Delta extends LinearOpMode{
+public class DeltaTestAuto extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
 	private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
@@ -18,9 +18,6 @@ public class Delta extends LinearOpMode{
 
 		telemetry.addData("Position on Field (with reference to the Relic matt", "back right");
 		telemetry.addData("Status", "Initialized");
-		telemetry.addData("Jewel", "Not Gotten");
-		telemetry.update();
-
 
 		boolean jewelGotten = false;
 		boolean FORWARD = false;
@@ -40,22 +37,26 @@ public class Delta extends LinearOpMode{
 		robot.resetEncoders();
 
 
-		while(opModeIsActive()) {
+		while(opModeIsActive()); {
 
 			telemetry.addData("Status", "Running");
 			telemetry.update();
 
 
 			robot.setDriveForward();
-			robot.setBigPos(40);
+			robot.setBigPos(10);
 			robot.runPos();
 			robot.setPower(0.6);
 			robot.waitForDriveStop();
+			robot.setPower(0);
 
 
 
 
 		}
+		telemetry.addData("Jewel", "Not Gotten");
+		telemetry.update();
+
 
 	}
 }

@@ -125,6 +125,15 @@ public class Definitions  {
 		rightFront.setPower(power);
 	}
 
+	void armEncoderInit() {
+		armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+		armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+	}
+	void armEncoderReset() {
+		armLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
+		armRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
+	}
+
 	void encoderInit(){
 		leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 		leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

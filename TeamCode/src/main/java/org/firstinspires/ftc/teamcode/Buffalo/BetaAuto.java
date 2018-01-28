@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous (name = "WE ARE BLUE TEAM")
-public class Beta extends LinearOpMode{
+public class BetaAuto extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
 	private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);

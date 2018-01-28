@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp (name = "Sexy TeleOp v1.0.0")
-public class Omega extends LinearOpMode {
+public class OmegaTeleOp extends LinearOpMode {
 
 	private Definitions robot = new Definitions();
 
@@ -21,6 +21,21 @@ public class Omega extends LinearOpMode {
 
 		robot.init(hardwareMap);
 		robot.servoInit();
+
+		robot.armEncoderInit();
+
+		robot.runtime.reset();
+		while (true) {
+			if (robot.runtime.seconds() <= 2) {
+				robot.armRight.setPower(0.1);
+				robot.armLeft.setPower(-0.1);
+			}
+			else if (robot.runtime.seconds() > 2) {
+				break;
+			}
+		}
+
+		robot.armEncoderReset();
 
 		waitForStart();
 		robot.runtime.reset();
@@ -65,7 +80,7 @@ public class Omega extends LinearOpMode {
 
 			if(!gamepad1.dpad_down && gamepad1.dpad_up){
 				robot.pulley.setPower(0.5);
-			} else if (gamepad1.dpad_down && !gamepad1.dpad_up){
+			} else if(gamepad1.dpad_down && !gamepad1.dpad_up){
 				robot.pulley.setPower(-0.5);
 			} else {
 				robot.pulley.setPower(0);
@@ -119,7 +134,6 @@ public class Omega extends LinearOpMode {
 			} else {
 				robot.relicGrip.setPosition(0);
 			} */
-
 
 
 
