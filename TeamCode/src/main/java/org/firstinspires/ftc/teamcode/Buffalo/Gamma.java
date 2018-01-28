@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 28, 2017 at 3:44 PM .
  */
 @TeleOp (name = "Jewel Test")
-public class GammaTestTeleOp extends LinearOpMode {
+public class Gamma extends LinearOpMode {
 
 	private Definitions robot = new Definitions();
 
