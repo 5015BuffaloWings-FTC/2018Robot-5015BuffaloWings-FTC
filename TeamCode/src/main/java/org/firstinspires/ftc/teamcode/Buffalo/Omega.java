@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp (name = "Sexy TeleOp v1.0.0")
-public class Omega extends LinearOpMode {
+public class  Omega extends LinearOpMode {
 
 	private Definitions robot = new Definitions();
 
@@ -43,10 +43,11 @@ public class Omega extends LinearOpMode {
 				slow = 1;
 			}
 
-			double DFR = Range.clip(slow*0.5*(-gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
-			double DFL = Range.clip(slow*0.5*(gamepad1.left_stick_y -gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
-			double DBR = Range.clip(slow*0.5*(-gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
-			double DBL = Range.clip(slow*0.5*(gamepad1.left_stick_y +gamepad1.left_stick_x - gamepad1.right_stick_x),-1,1);
+			//
+			double DFR = Range.clip((-gamepad1.left_stick_y -(0.9*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
+			double DFL = Range.clip((gamepad1.left_stick_y -(0.9*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
+			double DBR = Range.clip((-gamepad1.left_stick_y +(0.9*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);
+			double DBL = Range.clip((gamepad1.left_stick_y +(0.9*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);
 
 			robot.rightFront.setPower(DFR);
 			robot.leftFront.setPower(DFL);

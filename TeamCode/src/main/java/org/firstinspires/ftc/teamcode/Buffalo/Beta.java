@@ -84,8 +84,8 @@ public class Beta extends LinearOpMode{
 				robot.setPower(0);
 				robot.setJewelPosition(1);
 				jewelGotten = true;
-				FORWARD = true;
-				BACKWARD = false;
+				FORWARD = false;
+				BACKWARD = true;
 				telemetry.addData("Jewel", "Gotten!");
 				telemetry.update();
 
