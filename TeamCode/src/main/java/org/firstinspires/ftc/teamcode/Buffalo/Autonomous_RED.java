@@ -8,11 +8,11 @@ import org.firstinspires.ftc.teamcode.Buffalo.Definitions;
 
 
 /**
- * Created for team: 5015 Buffalo Wings by Noah Zulick on December 28, 2017 at 2:50 PM .
+ * Created by 5015 Buffalo Wings on December 28, 2017 at 2:50 PM .
  */
 
 @Autonomous (name = "WE ARE RED TEAM")
-public class Phi extends LinearOpMode{
+public class Autonomous_RED extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
 	private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
