@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created for team: 5015 Buffalo Wings by Noah Zulick on December 29, 2017 at 11:41 AM .
  */
 @Autonomous (name = "Auto Test v 2.0.0")
-public class Delta extends LinearOpMode{
+public class DeltaTestAuto extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
 	private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);

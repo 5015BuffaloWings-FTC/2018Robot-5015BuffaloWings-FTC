@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Buffalo.Definitions;
  */
 
 @Autonomous (name = "WE ARE RED TEAM")
-public class Phi extends LinearOpMode{
+public class PhiAuto extends LinearOpMode{
 
 	private Definitions robot = new Definitions();
 	private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
