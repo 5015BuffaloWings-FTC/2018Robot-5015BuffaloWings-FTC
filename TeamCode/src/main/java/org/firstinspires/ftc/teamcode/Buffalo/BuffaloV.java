@@ -26,8 +26,6 @@ public class BuffaloV extends LinearOpMode {
 
         double AL;
         double AR;
-        double V6;
-        boolean encoders = false;
 
         runtime.reset();
         while(true) {
@@ -93,12 +91,6 @@ public class BuffaloV extends LinearOpMode {
 			robot.rightBack.setPower(DBR);
 			robot.leftBack.setPower(DBL);
 
-/*
-			double PU = Range.clip((gamepad1.right_stick_y), -1, 1);
-
-			robot.pulley.setPower(PU);
-*/
-
             // Pully motor controls
 
 			if(gamepad1.dpad_up){ // Drive the motor to move the string up once DPAD_UP is pressed.
@@ -162,31 +154,6 @@ public class BuffaloV extends LinearOpMode {
             } else {
                 robot.reel.setPower(gamepad2.left_stick_y);
             }
-
-
-
-
-			/*******************************
-			***Relic Grabber/Gripper Code***
-			********************************/
-
-		/*	if(gamepad2.dpad_up && !gamepad2.dpad_down) {
-				robot.relicLift.setDirection(Servo.Direction.FORWARD);
-			}
-			else if(!gamepad2.dpad_up && gamepad2.dpad_down) {
-				robot.relicLift.setDirection(Servo.Direction.REVERSE);
-			} else {
-				robot.relicLift.setPosition(0.5);
-			}
-
-
-			if(gamepad2.x){
-				robot.relicGrip.setPosition(0.1);
-			} else {
-				robot.relicGrip.setPosition(0);
-			} */
-
-
 
 			telemetry.addData("Run Time", robot.runtime.toString()); // Add the runtime information to the telemetry.
 			telemetry.addData("Jewel Position", robot.jewel.getPosition()); // Add the jewel position to the telemetry.
