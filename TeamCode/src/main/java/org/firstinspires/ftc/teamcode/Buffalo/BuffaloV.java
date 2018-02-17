@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Buffalo;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -23,29 +24,41 @@ public class BuffaloV extends LinearOpMode {
 		robot.init(hardwareMap); // Initialize all the hardware except servos.
 		robot.servoInit(); // Enable servos on their own to allow for more accurate starting positions.
 
-        double AL = 0;
-        double AR = 0;
+        double AL;
+        double AR;
+        double V6;
         boolean encoders = false;
 
         runtime.reset();
-        while(runtime.seconds() < 3) {
-            robot.armLeft.setPower(0.07);
-            robot.armRight.setPower(-0.07);
+        while(true) {
+
+            if (runtime.seconds() < 3) {
+                robot.armLeft.setPower(0.07);
+                robot.armRight.setPower(-0.07);
+            }
+            else {
+                robot.armRight.setPower(0);
+                robot.armLeft.setPower(0);
+                break;
+            }
+
+            if (runtime.seconds() > 3) {
+                robot.armRight.setPower(0);
+                robot.armLeft.setPower(0);
+                break;
+            }
         }
         sleep(500);
         robot.armEncoderReset();
 		robot.armEncoderInit();
 
+        robot.reel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.reel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 		waitForStart(); // Wait for driver to press start.
 		robot.runtime.reset(); // Set the uptime to zero.
 
 		while(opModeIsActive()){ // Once the driver presses start.
-
-            if (!encoders) {
-                robot.armEncoderReset();
-                robot.armEncoderInit();
-                encoders = true;
-            }
 
 			//Actions with Game Pad 1
 			double slow; // Number that allows for throttle control.
@@ -111,7 +124,7 @@ public class BuffaloV extends LinearOpMode {
 
 			if (robot.armLeft.getCurrentPosition() >= -70 && Al < 0) {
 			    AL = 0;
-            } else if (robot.armLeft.getCurrentPosition() <= -275 && Al > 0) {
+            } else if (robot.armLeft.getCurrentPosition() <= -315 && Al > 0) {
 			    AL = 0;
             } else {
                 if (robot.armLeft.getCurrentPosition() < -175 && Al > 0) {
@@ -123,7 +136,7 @@ public class BuffaloV extends LinearOpMode {
 
             if (robot.armRight.getCurrentPosition() <= 70 && Ar < 0) {
 			    AR = 0;
-            } else if (robot.armRight.getCurrentPosition() >= 275 && Ar > 0) {
+            } else if (robot.armRight.getCurrentPosition() >= 300 && Ar > 0) {
 			    AR = 0;
             } else {
 			    if (robot.armRight.getCurrentPosition() > 175 && Ar > 0) {
@@ -140,16 +153,22 @@ public class BuffaloV extends LinearOpMode {
         /*
          * Reel Arm Controller
          */
+            telemetry.addData("reel",robot.reel.getCurrentPosition());
+            if (robot.reel.getCurrentPosition() >= 0 && gamepad2.left_stick_y > 0) {
+                robot.reel.setPower(0);
+            } else if (robot.reel.getCurrentPosition() <= -4200 && gamepad2.left_stick_y < 0) {
+                robot.reel.setPower(0);
 
-			double V6 = -gamepad2.left_stick_y; // Reverse the value of the stick in order to provide a useable control. Pulling down makes the reel go up and vice versa.
-			robot.reel.setPower(V6);
+            } else {
+                robot.reel.setPower(gamepad2.left_stick_y);
+            }
 
 
 
 
-			/********************************/
-			/**Relic Grabber/Gripper Code**/
-			/********************************/
+			/*******************************
+			***Relic Grabber/Gripper Code***
+			********************************/
 
 		/*	if(gamepad2.dpad_up && !gamepad2.dpad_down) {
 				robot.relicLift.setDirection(Servo.Direction.FORWARD);
