@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Buffalo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -14,18 +15,37 @@ import com.qualcomm.robotcore.util.Range;
 public class BuffaloV extends LinearOpMode {
 
 	private Definitions robot = new Definitions(); // Call the main functions file for use later.
+    private ElapsedTime runtime = new ElapsedTime(ElapsedTime.Resolution.SECONDS);
 
 
-	@Override
+    @Override
 	public void runOpMode() throws InterruptedException { // Main function combines all functions into one.
-
 		robot.init(hardwareMap); // Initialize all the hardware except servos.
 		robot.servoInit(); // Enable servos on their own to allow for more accurate starting positions.
+
+        double AL = 0;
+        double AR = 0;
+        boolean encoders = false;
+
+        runtime.reset();
+        while(runtime.seconds() < 3) {
+            robot.armLeft.setPower(0.07);
+            robot.armRight.setPower(-0.07);
+        }
+        sleep(500);
+        robot.armEncoderReset();
+		robot.armEncoderInit();
 
 		waitForStart(); // Wait for driver to press start.
 		robot.runtime.reset(); // Set the uptime to zero.
 
 		while(opModeIsActive()){ // Once the driver presses start.
+
+            if (!encoders) {
+                robot.armEncoderReset();
+                robot.armEncoderInit();
+                encoders = true;
+            }
 
 			//Actions with Game Pad 1
 			double slow; // Number that allows for throttle control.
@@ -34,14 +54,11 @@ public class BuffaloV extends LinearOpMode {
 
 			if (gamepad1.right_bumper && !gamepad1.left_bumper) {
 				slow = 0.2;
-			}
-			else if (!gamepad1.right_bumper && gamepad1.left_bumper) {
+			} else if (!gamepad1.right_bumper && gamepad1.left_bumper) {
 				slow = 2/5;
-			}
-			else if (gamepad1.right_bumper && gamepad1.left_bumper){
+			} else if (gamepad1.right_bumper && gamepad1.left_bumper){
 				slow = 2;
-			}
-			else {
+			} else {
 				slow = 1;
 			}
 
@@ -51,10 +68,10 @@ public class BuffaloV extends LinearOpMode {
 			// clips it in order to make sure that the motors do not burn out (i.e. Makes
 			// sure the value doesn't climb above 1 or below -1.
 
-			double DFR = Range.clip((-gamepad1.left_stick_y -(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);//to 1 making sure they don't burn out.
-			double DFL = Range.clip((gamepad1.left_stick_y -(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1); //This will clip the outputs to the motors
-			double DBR = Range.clip((-gamepad1.left_stick_y +(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);
-			double DBL = Range.clip((gamepad1.left_stick_y +(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x),-1,1);
+			double DFR = Range.clip((-gamepad1.left_stick_y -(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x)*slow,-1,1);//to 1 making sure they don't burn out.
+			double DFL = Range.clip((gamepad1.left_stick_y -(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x)*slow,-1,1); //This will clip the outputs to the motors
+			double DBR = Range.clip((-gamepad1.left_stick_y +(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x)*slow,-1,1);
+			double DBL = Range.clip((gamepad1.left_stick_y +(0.87*gamepad1.left_stick_x) - gamepad1.right_stick_x)*slow,-1,1);
 
 			// Apply the values to the motors.
 
@@ -89,9 +106,32 @@ public class BuffaloV extends LinearOpMode {
 			}
 
 			// Algorithm to determine the power to set the left and right arms to.
-			double AL = -robot.comp+((0.1*-gamepad2.left_stick_x)+(0.15*gamepad2.right_stick_y));
-			double AR = robot.comp+((0.1*-gamepad2.right_stick_x)+(0.15*-gamepad2.right_stick_y));
+            double Al = robot.comp + ((0.1 * gamepad2.left_stick_x) + (0.15 * -gamepad2.right_stick_y));
+            double Ar = robot.comp+((0.1*-gamepad2.right_stick_x)+(0.15*-gamepad2.right_stick_y));
 
+			if (robot.armLeft.getCurrentPosition() >= -70 && Al < 0) {
+			    AL = 0;
+            } else if (robot.armLeft.getCurrentPosition() <= -275 && Al > 0) {
+			    AL = 0;
+            } else {
+                if (robot.armLeft.getCurrentPosition() < -175 && Al > 0) {
+                    AL = 0.5*(-robot.comp + ((0.1 * -gamepad2.left_stick_x) + (0.15 * gamepad2.right_stick_y)));
+                } else {
+                    AL = -robot.comp + ((0.1 * -gamepad2.left_stick_x) + (0.15 * gamepad2.right_stick_y));
+                }
+            }
+
+            if (robot.armRight.getCurrentPosition() <= 70 && Ar < 0) {
+			    AR = 0;
+            } else if (robot.armRight.getCurrentPosition() >= 275 && Ar > 0) {
+			    AR = 0;
+            } else {
+			    if (robot.armRight.getCurrentPosition() > 175 && Ar > 0) {
+                    AR = 0.5*(robot.comp+((0.1*-gamepad2.right_stick_x)+(0.15*-gamepad2.right_stick_y)));
+                } else {
+                    AR = robot.comp + ((0.1 * -gamepad2.right_stick_x) + (0.15 * -gamepad2.right_stick_y));
+                }
+            }
 			// Apply the power to the motors.
 			robot.armRight.setPower(AR);
 			robot.armLeft.setPower(AL);

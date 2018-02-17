@@ -126,12 +126,12 @@ public class Definitions  {
 	}
 
 	void armEncoderInit() {
-		armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-		armRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+		armLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		armRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 	}
 	void armEncoderReset() {
-		armLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
-		armRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
+		armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+		armRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 	}
 
 	void encoderInit(){
